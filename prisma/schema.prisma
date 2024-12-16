@@ -1,0 +1,44 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ApiKey {
+  id                    Int                 @id @default(autoincrement())
+  name                  String              @db.VarChar(255)
+  key                   String              @db.VarChar(64)
+  active                Boolean             @default(true)
+  created_at            DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at            DateTime?           @updatedAt @db.Timestamp(0)
+  deleted_at            DateTime?           @db.Timestamp(0)
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  password    String
+  name        String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  posts       Post[]      
+}
+
+model Post {
+  id          Int         @id @default(autoincrement())
+  userId      Int?
+  title       String      @db.VarChar(255)
+  content     String      @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  order       Int         @default(0)
+
+  user        User?        @relation(fields: [userId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
+}
+
+

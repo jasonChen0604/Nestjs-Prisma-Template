@@ -1,0 +1,3 @@
+include:
+  - project: "TQMS/alpha/gitlab-ci-template"
+    file: "/.gitlab-ci.yml"

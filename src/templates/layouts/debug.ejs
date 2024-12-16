@@ -1,0 +1,15 @@
+<% if(!!debug){ %>
+    <p>[Debug Start]</p>
+    <p>Origin send to:</p>
+    <br />
+    <% for(let i=0; i < debug?.targets?.length; i++) { %>
+        <p>
+          <span><%= debug.targets[i].name %> (<%= debug.targets[i].emplid %>)</span>
+          <span> - </span>
+          <span><%= debug.targets[i].mail %></span>
+        </p>
+     <% } %>
+    <p>[Debug End]</p>
+    <hr/>
+    <br/>
+<% } %>
